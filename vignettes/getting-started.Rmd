@@ -1,0 +1,63 @@
+---
+title: "Getting Started with dbhydroInsights"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with dbhydroInsights}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dbhydroInsights)
+```
+
+# Locations
+
+```{r}
+get_locations()
+```
+
+# Timeseries
+
+## Metadata
+
+Get metadata for a given timeseries
+
+```{r}
+get_timeseries_metadata(dbkey = "91510")
+```
+
+Get timeseries data based on dbkey
+
+```{r}
+get_timeseries_data(dbkeys = "91510", startDate = "20200101", endDate = "20240101")
+```
+
+## Metadata
+
+Get list of available datasets by parameter
+
+```{r}
+get_wq_metadata(parameters = "25", startDate = "20190101", endDate = "20191231")
+```
+
+or by locations
+
+```{r}
+get_wq_metadata(locations = "G722", parameters = "25", startDate = "20190101", endDate = "20191231")
+```
+
+## Data
+
+Get water quality data for specific locations and parameters
+
+```{r}
+get_wq_data(locations = c("G722", "BB52"), parameters = c("18", "25"), startDate = "20190101", endDate = "20241231")
+```
