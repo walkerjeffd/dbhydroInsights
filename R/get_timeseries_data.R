@@ -39,12 +39,12 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
   writeBin(httr2::resp_body_raw(resp), zip_file)
   exdir <- file.path(tempdir(), paste0("dbhydroInsights_", format(Sys.time(), "%Y%m%d%H%M%S")))
   unzip(zip_file, exdir = exdir)
-  txt_file <- file.path(exdir, "sfwmd-data.txt")
-  if (!file.exists(txt_file)) {
-    stop(paste0("Data file not found after extracting zip file (", txt_file, ")"))
+  csv_file <- file.path(exdir, "sfwmd-data.csv")
+  if (!file.exists(csv_file)) {
+    stop(paste0("Data file not found after extracting zip file (", csv_file, ")"))
   }
 
-  readr::read_csv(txt_file, comment = "#", col_types = readr::cols(
+  readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
     TIMESTAMP = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     VALUE = readr::col_double(),
