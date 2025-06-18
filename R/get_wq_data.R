@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' get_wq_data(locations = "G722", parameters = "25", 
+#' get_wq_data(locations = "G722", parameters = "25",
 #'             startDate = "2020-01-01", endDate = "2024-01-01")
 get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = NULL) {
   query <- create_wq_query(...)
@@ -43,7 +43,7 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
 
   csv_text <- httr2::resp_body_string(resp)
 
-  if (nrow(readr::read_csv(csv_text, comment = "#")) == 0) {
+  if (nrow(readr::read_csv(csv_text, comment = "#", show_col_types = FALSE)) == 0) {
     warning("No data returned")
     return(NULL)
   }
