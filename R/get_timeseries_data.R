@@ -46,7 +46,7 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
 
   readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
-    TIMESTAMP = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
+    TIMESTAMP = readr::col_date(format = "%Y-%m-%d"),
     VALUE = readr::col_double(),
     REVISION_DATE = readr::col_datetime(format = "%m/%d/%Y %H:%M")
   ))
