@@ -21,7 +21,8 @@ library(dbhydroInsights)
 # Locations
 
 ```{r}
-get_locations()
+locations <- get_locations()
+head(locations)
 ```
 
 # Timeseries
@@ -37,10 +38,13 @@ get_timeseries_metadata(dbkey = "91510")
 Get timeseries data based on dbkey
 
 ```{r}
-get_timeseries_data(dbkeys = "91510", startDate = "20200101", endDate = "20240101")
+get_timeseries_data(dbkeys = "91510", startDate = "20200101", endDate = "20240101") |> 
+  head()
 ```
 
-## Metadata
+## Water Quality Samples
+
+### Metadata
 
 Get list of available datasets by parameter
 
@@ -54,7 +58,7 @@ or by locations
 get_wq_metadata(locations = "G722", parameters = "25", startDate = "20190101", endDate = "20191231")
 ```
 
-## Data
+### Sample Data
 
 Get water quality data for specific locations and parameters
 
