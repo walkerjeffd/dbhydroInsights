@@ -39,10 +39,17 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
   writeBin(httr2::resp_body_raw(resp), zip_file)
   exdir <- file.path(tempdir(), paste0("dbhydroInsights_", format(Sys.time(), "%Y%m%d%H%M%S")))
   unzip(zip_file, exdir = exdir)
-  csv_file <- file.path(exdir, "sfwmd-data.csv")
-  if (!file.exists(csv_file)) {
-    stop(paste0("Data file not found after extracting zip file (", csv_file, ")"))
+  #csv_file <- file.path(exdir, paste0("sfwmd-data-",format(Sys.time(),"%Y%m%d%H%M"),".csv")) #this works, but if it takes more than a minute to load, the formatting could fail, so using something more robust
+  #if (!file.exists(csv_file)) {
+    #stop(paste0("Data file not found after extracting zip file (", csv_file, ")"))
+  csv_files <- list.files(exdir, pattern = "\\.csv$", full.names = TRUE)
+
+  if (length(csv_files) == 0) {
+    stop(paste0("No CSV file found in extracted zip (", exdir, ")")) #if zip empty, return message
   }
+
+  csv_file <- csv_files[1] #grab the first csv file...only expecting one anyway, more robust to avoid the timestamps or SFWMD csv file nomenclature changes
+
 
   readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
