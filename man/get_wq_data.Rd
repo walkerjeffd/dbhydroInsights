@@ -22,6 +22,6 @@ A tibble of water quality values (NULL if no data found)
 Retrieves water quality data based on specified filters and date range.
 }
 \examples{
-get_wq_data(locations = "G722", parameters = "25", 
+get_wq_data(locations = "G722", parameters = "25",
             startDate = "2020-01-01", endDate = "2024-01-01")
 }
