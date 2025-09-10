@@ -38,8 +38,7 @@ get_timeseries_metadata(dbkey = "91510")
 Get timeseries data based on dbkey
 
 ```{r}
-get_timeseries_data(dbkeys = "91510", startDate = "20200101", endDate = "20240101") |> 
-  head()
+head(get_timeseries_data(dbkeys = "91510", startDate = "20200101", endDate = "20240101"))
 ```
 
 ## Water Quality Samples

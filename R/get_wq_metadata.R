@@ -26,14 +26,16 @@ create_wq_query <- function (locations = "ALL", parameters = "ALL", methods = "A
       )
     )
   } else {
-    x[["locations"]] <- lapply(locations, \(x) list(
-      name = x,
-      type = "SITE"
-    ))
+    x[["locations"]] <- lapply(locations, function (x) {
+      list(
+        name = x,
+        type = "SITE"
+      )
+    })
   }
 
   x
-}
+    }
 
 #' Get Water Quality Metadata
 #'
