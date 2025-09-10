@@ -51,7 +51,7 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
   readr::read_csv(csv_text, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
     value = readr::col_double(),
-    collectDate = readr::col_datetime(format = "%m/%d/%Y %H:%M"),
+    collectDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     mdl = readr::col_double(),
     depth = readr::col_double(),
     dcsMeters = readr::col_double(),
