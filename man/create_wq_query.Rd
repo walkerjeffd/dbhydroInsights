@@ -6,6 +6,7 @@
 \usage{
 create_wq_query(
   locations = "ALL",
+  location_type = "STATION",
   parameters = "ALL",
   methods = "ALL",
   projects = "ALL",
@@ -15,6 +16,8 @@ create_wq_query(
 }
 \arguments{
 \item{locations}{Character vector of location names or "ALL"}
+
+\item{location_type}{Type of location, either "STATION" or "SITE" (default "STATION")}
 
 \item{parameters}{Character vector of parameter codes or "ALL"}
 

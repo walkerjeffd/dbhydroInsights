@@ -1,6 +1,7 @@
 #' Create a Water Quality Query
 #'
 #' @param locations Character vector of location names or "ALL"
+#' @param location_type Type of location, either "STATION" or "SITE" (default "STATION")
 #' @param parameters Character vector of parameter codes or "ALL"
 #' @param methods Character vector of method codes or "ALL"
 #' @param projects Character vector of project codes or "ALL"
@@ -9,7 +10,7 @@
 #'
 #' @return A list containing the query structure
 #' @keywords internal
-create_wq_query <- function (locations = "ALL", parameters = "ALL", methods = "ALL", projects = "ALL", matrices = "ALL", paramGroups = "ALL") {
+create_wq_query <- function (locations = "ALL", location_type = "STATION", parameters = "ALL", methods = "ALL", projects = "ALL", matrices = "ALL", paramGroups = "ALL") {
   x <- list(
     parameters = as.list(parameters),
     methods = as.list(methods),
@@ -29,7 +30,7 @@ create_wq_query <- function (locations = "ALL", parameters = "ALL", methods = "A
     x[["locations"]] <- lapply(locations, function (x) {
       list(
         name = x,
-        type = "SITE"
+        type = location_type
       )
     })
   }
