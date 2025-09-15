@@ -52,17 +52,17 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
 
   readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
-    TIMESTAMP = readr::col_character(), #since timestamp can be by date or by breakpoint datetime, need dynamic way to parse
+    TIMESTAMP = readr::col_character(),
     VALUE = readr::col_double(),
     REVISION_DATE = readr::col_datetime(format = "%m/%d/%Y %H:%M")
-  ))%>%
+  )) %>%
     dplyr::mutate(TIMESTAMP = dplyr::na_if(TIMESTAMP, "")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      TIMESTAMP = if (stringr::str_detect(TIMESTAMP, "\\d{2}:\\d{2}(:\\d{2})?")) { #checks for if timestamp includes hms
-        readr::parse_datetime(TIMESTAMP) #if includes hms, treats as datatime
+      TIMESTAMP = if (stringr::str_detect(TIMESTAMP, "\\d{2}:\\d{2}(:\\d{2})?")) {
+        readr::parse_datetime(TIMESTAMP)
       } else {
-        readr::parse_date(TIMESTAMP) #otherwise treats just as a date
+        readr::parse_date(TIMESTAMP)
       }
     ) %>%
     dplyr::ungroup()
