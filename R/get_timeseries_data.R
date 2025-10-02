@@ -7,7 +7,7 @@
 #' @param endDate End date as string in "YYYY-MM-DD" format
 #'
 #' @importFrom utils unzip
-#' @return A tibble containing timeseries data
+#' @return A tibble containing timeseries data or NULL if no data is found
 #' @export
 #'
 #' @examples
@@ -38,33 +38,27 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
   zip_file <- tempfile(fileext = ".zip")
   writeBin(httr2::resp_body_raw(resp), zip_file)
   exdir <- file.path(tempdir(), paste0("dbhydroInsights_", format(Sys.time(), "%Y%m%d%H%M%S")))
-  unzip(zip_file, exdir = exdir)
+  unzipped <- unzip(zip_file, exdir = exdir)
 
   csv_files <- list.files(exdir, pattern = "\\.csv$", full.names = TRUE)
 
   if (length(csv_files) == 0) {
-    stop(paste0("No CSV file found in extracted zip (", exdir, ")"))
+    warning(paste0("No CSV file found in extracted zip (", exdir, ")"))
+    return(NULL)
   } else if (length(csv_files) > 1) {
     stop(paste0("Multiple CSV files found in extracted zip, expected only one (", exdir, ")"))
   }
 
   csv_file <- csv_files[1]
 
-  readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
+  x <- readr::read_csv(csv_file, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
     TIMESTAMP = readr::col_character(),
     VALUE = readr::col_double(),
     REVISION_DATE = readr::col_datetime(format = "%m/%d/%Y %H:%M")
-  )) %>%
-    dplyr::mutate(TIMESTAMP = dplyr::na_if(TIMESTAMP, "")) %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(
-      TIMESTAMP = if (stringr::str_detect(TIMESTAMP, "\\d{2}:\\d{2}(:\\d{2})?")) {
-        readr::parse_datetime(TIMESTAMP)
-      } else {
-        readr::parse_date(TIMESTAMP)
-      }
-    ) %>%
-    dplyr::ungroup()
-
+  ))
+  x$TIMESTAMP <- dplyr::na_if(x$TIMESTAMP, "")
+  x$TIMESTAMP <- ifelse(nchar(x$TIMESTAMP) == 10, paste0(x$TIMESTAMP, " 00:00"), x$TIMESTAMP)
+  x$TIMESTAMP <- lubridate::ymd_hm(x$TIMESTAMP)
+  x
 }

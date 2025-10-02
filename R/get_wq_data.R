@@ -48,16 +48,38 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
     return(NULL)
   }
 
-  readr::read_csv(csv_text, comment = "#", col_types = readr::cols(
+  x <- readr::read_csv(csv_text, comment = "#", col_types = readr::cols(
     .default = readr::col_character(),
-    value = readr::col_double(),
     collectDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
-    mdl = readr::col_double(),
+    firstTriggerDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     depth = readr::col_double(),
-    dcsMeters = readr::col_double(),
+    testNumber = readr::col_double(),
+    value = readr::col_double(),
+    sigFigValue = readr::col_double(),
+    dilution = readr::col_double(),
+    mdl = readr::col_double(),
+    pql = readr::col_double(),
+    rdl = readr::col_double(),
+    nDec = readr::col_double(),
     discharge = readr::col_double(),
+    weatherCode = readr::col_double(),
+    collectionSpan = readr::col_double(),
+    dcsMeters = readr::col_double(),
+    totalDepth = readr::col_double(),
     latitude = readr::col_double(),
     longitude = readr::col_double(),
-    totalDepth = readr::col_double()
+    validationLevel = readr::col_double(),
+    LIMSNumber = readr::col_double(),
+    receiveDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
+    measureDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
+    filtrationDate = readr::col_datetime(format = "%Y-%m-%d %H:%M")
   ))
+  
+  if (nrow(readr::problems(x)) > 0) {
+    warning("There were problems parsing the CSV data")
+    print(readr::problems(x))
+    stop("Failed to parse WQ data from CSV")
+  }
+
+  x
 }

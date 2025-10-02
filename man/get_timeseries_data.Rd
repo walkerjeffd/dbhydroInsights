@@ -14,7 +14,7 @@ get_timeseries_data(dbkeys, startDate = NULL, endDate = NULL)
 \item{endDate}{End date as string in "YYYY-MM-DD" format}
 }
 \value{
-A tibble containing timeseries data
+A tibble containing timeseries data or NULL if no data is found
 }
 \description{
 Retrieves timeseries data for specified database keys and date range.
