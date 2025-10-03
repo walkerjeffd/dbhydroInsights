@@ -38,12 +38,11 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
   zip_file <- tempfile(fileext = ".zip")
   writeBin(httr2::resp_body_raw(resp), zip_file)
   exdir <- file.path(tempdir(), paste0("dbhydroInsights_", format(Sys.time(), "%Y%m%d%H%M%S")))
-  unzipped <- unzip(zip_file, exdir = exdir)
+  unzipped <- suppressWarnings(unzip(zip_file, exdir = exdir))
 
   csv_files <- list.files(exdir, pattern = "\\.csv$", full.names = TRUE)
 
   if (length(csv_files) == 0) {
-    warning(paste0("No CSV file found in extracted zip (", exdir, ")"))
     return(NULL)
   } else if (length(csv_files) > 1) {
     stop(paste0("Multiple CSV files found in extracted zip, expected only one (", exdir, ")"))
