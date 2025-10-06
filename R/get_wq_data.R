@@ -54,7 +54,6 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
     depth = readr::col_double(),
     testNumber = readr::col_double(),
     value = readr::col_double(),
-    sigFigValue = readr::col_double(),
     dilution = readr::col_double(),
     mdl = readr::col_double(),
     pql = readr::col_double(),
@@ -72,12 +71,18 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
     measureDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     filtrationDate = readr::col_datetime(format = "%Y-%m-%d %H:%M")
   ))
-  
+
   if (nrow(readr::problems(x)) > 0) {
     warning("There were problems parsing the CSV data")
     print(readr::problems(x))
     stop("Failed to parse WQ data from CSV")
   }
+
+  # manually parse numeric columns outside read_csv() to handle commas in numbers (e.g., "1,000")
+  numeric_cols <- c("sigFigValue")
+  x <- dplyr::mutate(x,
+    across(all_of(numeric_cols), readr::parse_number)
+  )
 
   x
 }
