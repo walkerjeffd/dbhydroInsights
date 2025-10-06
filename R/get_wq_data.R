@@ -68,7 +68,6 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
     latitude = readr::col_double(),
     longitude = readr::col_double(),
     validationLevel = readr::col_double(),
-    LIMSNumber = readr::col_double(),
     receiveDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     measureDate = readr::col_datetime(format = "%Y-%m-%d %H:%M"),
     filtrationDate = readr::col_datetime(format = "%Y-%m-%d %H:%M")
