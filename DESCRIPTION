@@ -1,6 +1,6 @@
 Package: dbhydroInsights
 Title: Retrieve data from SFWMD DBHydroInsights
-Version: 1.0.1
+Version: 1.0.2
 Authors@R:
     person("Jeff", "Walker", , "jeff@walkerenvres.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1923-6550"))
