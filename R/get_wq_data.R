@@ -42,8 +42,9 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
   }
 
   csv_text <- httr2::resp_body_string(resp)
+  csv_text <- gsub("\\\\\"", "", csv_text)
 
-  if (nrow(readr::read_csv(csv_text, comment = "#", show_col_types = FALSE)) == 0) {
+  if (nrow(readr::read_csv(csv_text, comment = "#", col_types = "c")) == 0) {
     return(NULL)
   }
 
