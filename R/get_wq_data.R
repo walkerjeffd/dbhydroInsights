@@ -81,7 +81,7 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
   # manually parse numeric columns outside read_csv() to handle commas in numbers (e.g., "1,000")
   numeric_cols <- c("sigFigValue")
   x <- dplyr::mutate(x,
-    across(all_of(numeric_cols), readr::parse_number)
+    dplyr::across(dplyr::all_of(numeric_cols), readr::parse_number)
   )
 
   x
