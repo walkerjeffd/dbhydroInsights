@@ -60,7 +60,7 @@ create_wq_query <- function (locations = "ALL", location_type = "STATION", param
 get_wq_metadata <- function (..., startDate = NULL, endDate = NULL, offset = 0, limit = 1000, sleep = 1) {
   query <- create_wq_query(...)
 
-  url <- "https://api.sfwmd.gov/v1/insights-data/chem/ts"
+  url <- paste0(.base_url, "chem/ts")
   req <- httr2::req_url_query(
     httr2::request(url),
     offset = offset,

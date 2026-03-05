@@ -23,7 +23,7 @@ get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = N
     stop("startDate and endDate must be provided in YMD format")
   }
 
-  url <- "https://api.sfwmd.gov/v1/insights-data/chem/report/data"
+  url <- paste0(.base_url, "chem/report/data")
   req <- httr2::request(url)
   req <- httr2::req_url_query(
     req,

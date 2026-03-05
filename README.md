@@ -26,4 +26,4 @@ get_wq_metadata(parameters = "25", startDate = "20190101", endDate = "20191231")
 get_wq_data(locations = c("G722", "BB52"), parameters = c("18", "25"), startDate = "20190101", endDate = "20241231")
 ```
 
-Reference Tables: https://apps.sfwmd.gov/dbhydro-insights-data/#/reference-tables
+Reference Tables: https://insightsdata.sfwmd.gov/#/reference-tables

@@ -9,7 +9,7 @@
 #' locations <- get_locations()
 #' head(locations)
 get_locations <- function () {
-  url <- "https://api.sfwmd.gov/v1/insights-data/lookups/locations"
+  url <- paste0(.base_url, "lookups/locations")
   req <- httr2::request(url)
   resp <- httr2::req_perform(req)
   body <- httr2::resp_body_json(resp, simplifyVector = TRUE)

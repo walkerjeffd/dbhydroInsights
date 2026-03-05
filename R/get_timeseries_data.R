@@ -24,7 +24,7 @@ get_timeseries_data <- function(dbkeys, startDate = NULL, endDate = NULL) {
     stop("startDate and endDate must be provided in YMD format")
   }
 
-  url <- "https://api.sfwmd.gov/v1/insights-data/cont/data"
+  url <- paste0(.base_url, "cont/data")
   req <- httr2::request(url)
   req <- httr2::req_url_query(
     req,
