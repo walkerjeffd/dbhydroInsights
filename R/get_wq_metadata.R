@@ -10,13 +10,15 @@
 #'
 #' @return A list containing the query structure
 #' @keywords internal
-create_wq_query <- function (locations = "ALL", location_type = "STATION", parameters = "ALL", methods = "ALL", projects = "ALL", matrices = "ALL", paramGroups = "ALL") {
+create_wq_query <- function (locations = "ALL", location_type = "STATION", parameters = "ALL", methods = "ALL", projects = "ALL", matrices = "ALL", paramGroups = "ALL", sampleTypes = "ALL", testNumbers = "ALL") {
   x <- list(
     parameters = as.list(parameters),
     methods = as.list(methods),
     projects = as.list(projects),
     matrices = as.list(matrices),
-    paramGroups = as.list(paramGroups)
+    paramGroups = as.list(paramGroups),
+    sampleTypes = as.list(sampleTypes),
+    testNumbers = as.list(testNumbers)
   )
 
   if (length(locations) == 1 && locations == "ALL") {
@@ -36,7 +38,7 @@ create_wq_query <- function (locations = "ALL", location_type = "STATION", param
   }
 
   x
-    }
+}
 
 #' Get Water Quality Metadata
 #'
