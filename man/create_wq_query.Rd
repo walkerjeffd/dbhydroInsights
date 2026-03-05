@@ -11,7 +11,9 @@ create_wq_query(
   methods = "ALL",
   projects = "ALL",
   matrices = "ALL",
-  paramGroups = "ALL"
+  paramGroups = "ALL",
+  sampleTypes = "ALL",
+  testNumbers = "ALL"
 )
 }
 \arguments{
