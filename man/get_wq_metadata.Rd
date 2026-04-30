@@ -33,6 +33,6 @@ A tibble containing water quality metadata
 Retrieves metadata for water quality measurements based on specified filters.
 }
 \examples{
-get_wq_metadata(locations = c("G722", "BB52"), parameters = c("18", "25"),
+get_wq_metadata(locations = c("G722", "BB52"), parameters = c("NITRATE+NITRITE-N", "PHOSPHATE, TOTAL AS P"),
                 startDate = "20190101", endDate = "20191231")
 }

@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' get_wq_data(locations = "G722", parameters = "25",
+#' get_wq_data(locations = "G722", parameters = "PHOSPHATE, TOTAL AS P",
 #'             startDate = "2020-01-01", endDate = "2024-01-01")
 get_wq_data <- function(..., timeseriesIds = NULL, startDate = NULL, endDate = NULL) {
   query <- create_wq_query(...)
